@@ -1,0 +1,2 @@
+# CLASE7_imagen_traductor
+CLASE7_imagen_traductor
