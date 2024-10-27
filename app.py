@@ -34,18 +34,60 @@ def remove_files(n):
 # Eliminar archivos mp3 después de 7 días
 remove_files(7)
 
+# Configuración del estilo CSS para fondo y colores de texto
+st.markdown("""
+    <style>
+        /* Fondo de la aplicación */
+        .stApp {
+            background-color: #e0f7fa;
+        }
+        /* Título principal */
+        .title {
+            color: #00796b;
+            font-size: 3em;
+            font-weight: bold;
+            text-align: center;
+        }
+        /* Subtítulo */
+        .subtitle {
+            color: #004d40;
+            font-size: 1.5em;
+            margin-top: 10px;
+        }
+        /* Encabezado en la barra lateral */
+        .sidebar-header {
+            color: #004d40;
+            font-size: 1.3em;
+        }
+        /* Texto principal */
+        .main-text {
+            color: #00796b;
+            font-size: 1.1em;
+        }
+        /* Texto de éxito y botones */
+        .stButton > button {
+            background-color: #00796b;
+            color: white;
+        }
+        .st-success {
+            color: #388e3c;
+            font-weight: bold;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 # Título y subtítulo de la aplicación
-st.title("🔍 Reconocimiento Óptico de Caracteres y Traducción")
-st.markdown("#### Detecta y traduce texto de una imagen, con opción de salida en audio 🔊")
+st.markdown('<div class="title">🔍 Reconocimiento Óptico de Caracteres y Traducción</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitle">Detecta y traduce texto de una imagen, con opción de salida en audio 🔊</div>', unsafe_allow_html=True)
 
 # Opciones de entrada de imagen: cámara o archivo
-st.subheader("Selecciona la fuente de la imagen:")
+st.markdown('<div class="main-text">Selecciona la fuente de la imagen:</div>', unsafe_allow_html=True)
 cam_ = st.checkbox("Usar Cámara")
 img_file_buffer = st.camera_input("Toma una Foto") if cam_ else None
 
 # Barra lateral para configuración
 with st.sidebar:
-    st.header("⚙️ Opciones de Procesamiento")
+    st.markdown('<div class="sidebar-header">⚙️ Opciones de Procesamiento</div>', unsafe_allow_html=True)
     filtro = st.radio("Aplicar filtro en imagen de cámara", ('Sí', 'No'))
 
 # Carga de imagen desde archivo
@@ -54,7 +96,7 @@ if bg_image is not None:
     st.image(bg_image, caption='Imagen cargada.', use_column_width=True)
     with open(bg_image.name, 'wb') as f:
         f.write(bg_image.read())
-    st.success(f"✅ Imagen guardada como {bg_image.name}")
+    st.markdown('<div class="st-success">✅ Imagen guardada correctamente</div>', unsafe_allow_html=True)
     img_cv = cv2.imread(bg_image.name)
     img_rgb = cv2.cvtColor(img_cv, cv2.COLOR_BGR2RGB)
     text = pytesseract.image_to_string(img_rgb)
@@ -73,7 +115,7 @@ if img_file_buffer:
 
 # Parámetros de traducción y audio en la barra lateral
 with st.sidebar:
-    st.header("🌐 Parámetros de Traducción y Audio")
+    st.markdown('<div class="sidebar-header">🌐 Parámetros de Traducción y Audio</div>', unsafe_allow_html=True)
     os.makedirs("temp", exist_ok=True)
     
     # Selección de idioma de entrada
